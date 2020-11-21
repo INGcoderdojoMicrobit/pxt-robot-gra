@@ -13,6 +13,24 @@ function doFUp (ile: number) {
         doUp()
     }
 }
+function doMaks () {
+    for (let index = 0; index < 2; index++) {
+        doFDown(1)
+        doFRight(1)
+        doFUp(1)
+        doFRight(1)
+    }
+    doFDown(4)
+    for (let index = 0; index < 2; index++) {
+        doFLeft(1)
+        doFUp(1)
+        doFLeft(1)
+        doFDown(1)
+        doFLeft(1)
+        doFUp(1)
+        doFLeft(1)
+    }
+}
 function doRight () {
     oldry = ry
     oldrx = rx
