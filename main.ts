@@ -23,6 +23,17 @@ function doRight () {
     robot.set(LedSpriteProperty.X, rx)
     doCheckSkarb()
 }
+function du_przemek () {
+    doFDown(4)
+    doFRight(4)
+    doFUp(4)
+    doFLeft(3)
+    doFDown(3)
+    doFRight(2)
+    doFUp(2)
+    doLeft()
+    doDown()
+}
 function doCheckSkarb () {
     score += 1
     paliwo += -1
@@ -110,14 +121,14 @@ let rx = 0
 let paliwo = 0
 let pausa = 0
 pausa = 100
-paliwo = 100
+paliwo = 25
 rx = 0
 ry = 0
 let slad = 100
 robot = game.createSprite(rx, ry)
 robot.set(LedSpriteProperty.Blink, 0)
-skarb = game.createSprite(3, 4)
+skarb = game.createSprite(1, 1)
 skarb.set(LedSpriteProperty.Blink, 400)
 basic.forever(function () {
-    doAdam()
+    du_przemek()
 })
