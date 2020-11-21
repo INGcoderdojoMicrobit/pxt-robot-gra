@@ -23,16 +23,9 @@ function doRight () {
     robot.set(LedSpriteProperty.X, rx)
     doCheckSkarb()
 }
-function du_przemek () {
-    doFDown(4)
+function doMichalina () {
     doFRight(4)
-    doFUp(4)
-    doFLeft(3)
-    doFDown(3)
-    doFRight(2)
-    doFUp(2)
-    doLeft()
-    doDown()
+    doFDown(1)
 }
 function doCheckSkarb () {
     score += 1
@@ -59,6 +52,17 @@ function doFLeft (ile: number) {
     for (let index = 0; index < ile; index++) {
         doLeft()
     }
+}
+function du_przemek () {
+    doFDown(4)
+    doFRight(4)
+    doFUp(4)
+    doFLeft(3)
+    doFDown(3)
+    doFRight(2)
+    doFUp(2)
+    doLeft()
+    doDown()
 }
 function doDown () {
     oldry = ry
@@ -130,5 +134,5 @@ robot.set(LedSpriteProperty.Blink, 0)
 skarb = game.createSprite(1, 1)
 skarb.set(LedSpriteProperty.Blink, 400)
 basic.forever(function () {
-    du_przemek()
+    doMichalina()
 })
