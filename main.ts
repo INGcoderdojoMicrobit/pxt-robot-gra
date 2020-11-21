@@ -190,14 +190,18 @@ skarb = game.createSprite(randint(1, 4), randint(1, 4))
 skarb.set(LedSpriteProperty.Blink, 400)
 doStart(1, 1)
 basic.forever(function () {
-    for (let index = 0; index <= 3; index++) {
-        for (let index11 = 0; index11 <= 3; index11++) {
-            doStart(index11 + 1, index + 1)
-            doRafal()
-            if (Efekt == 1) {
-                porazka += 1
-            } else if (Efekt == 2) {
-                sukces += 1
+    for (let index = 0; index <= 4; index++) {
+        for (let index11 = 0; index11 <= 4; index11++) {
+            if (index == 0 && index11 == 0) {
+            	
+            } else {
+                doStart(index11, index)
+                du_przemek()
+                if (Efekt == 1) {
+                    porazka += 1
+                } else if (Efekt == 2) {
+                    sukces += 1
+                }
             }
         }
     }
