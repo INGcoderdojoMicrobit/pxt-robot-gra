@@ -112,6 +112,18 @@ function doAdam () {
         doFDown(randint(1, 3))
     }
 }
+function doRafal () {
+    kierunek = randint(1, 2)
+    if (kierunek == 1) {
+        doFDown(1)
+    } else if (kierunek == 2) {
+        doFRight(1)
+    } else if (kierunek == 3) {
+        doFLeft(1)
+    } else if (kierunek == 4) {
+        doFUp(1)
+    }
+}
 function doLeft () {
     oldry = ry
     oldrx = rx
@@ -143,14 +155,14 @@ let rx = 0
 let paliwo = 0
 let pausa = 0
 pausa = 100
-paliwo = 25
+paliwo = 20
 rx = 0
 ry = 0
 let slad = 100
 robot = game.createSprite(rx, ry)
 robot.set(LedSpriteProperty.Blink, 0)
-skarb = game.createSprite(1, 1)
+skarb = game.createSprite(randint(1, 4), randint(1, 4))
 skarb.set(LedSpriteProperty.Blink, 400)
 basic.forever(function () {
-    doMichalina()
+    doRafal()
 })
