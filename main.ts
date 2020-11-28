@@ -1,20 +1,17 @@
-function doStart (x: number, y: number, ilePaliwo: number) {
+function doStart (robotx: number, roboty: number, skarbx: number, skarby: number, ilePaliwo: number) {
     // 0-Puste
     // 1-Brakło paliwa
     // 2-Wygrałeś
     Efekt = 0
     paliwo = ilePaliwo
     score = 0
-    rx = x
-    ry = y
-    sx = 0
-    sy = 0
+    rx = robotx
+    ry = roboty
     robot.set(LedSpriteProperty.X, rx)
     robot.set(LedSpriteProperty.Y, ry)
-    skarb.set(LedSpriteProperty.X, sx)
-    skarb.set(LedSpriteProperty.Y, sy)
+    skarb.set(LedSpriteProperty.X, skarbx)
+    skarb.set(LedSpriteProperty.Y, skarby)
 }
-
 
 function doFDown (ile: number) {
     for (let index = 0; index < ile; index++) {
@@ -41,31 +38,31 @@ function doFUp (ile: number) {
 // "sy>ry"	"sx<rx"	6
 // "sy<ry"	"sx<rx"	8
 function doRadarX (sx: number, sy: number, rx: number, ry: number) {
-    if (sx==rx && sy>ry) {
+    if (sx == rx && sy > ry) {
         return 5
     }
-    if (sx==rx && sy<ry) {
+    if (sx == rx && sy < ry) {
         return 1
     }
-    if (sy==ry && sx<rx) {
+    if (sy == ry && sx < rx) {
         return 7
     }
-    if (sy==ry && sx>rx) {
+    if (sy == ry && sx > rx) {
         return 3
     }
-    if (sy<ry && sx>rx) {
+    if (sy < ry && sx > rx) {
         return 2
     }
-    if (sy>ry && sx>rx) {
+    if (sy > ry && sx > rx) {
         return 4
     }
-    if (sy>ry && sx<rx) {
+    if (sy > ry && sx < rx) {
         return 6
     }
-    if (sy<ry && sx<rx) {
+    if (sy < ry && sx < rx) {
         return 8
     }
-return 0
+    return 0
 }
 function doMaks () {
     for (let index = 0; index < 100; index++) {
@@ -111,11 +108,11 @@ function doCheckSkarb () {
     basic.pause(pausa)
     if (paliwo <= 0) {
         Efekt = 1
-        basic.showIcon(IconNames.Skull)
+        if (wizual) {basic.showIcon(IconNames.Skull)}
     }
     if (rx == skarb.get(LedSpriteProperty.X) && ry == skarb.get(LedSpriteProperty.Y)) {
         Efekt = 2
-        basic.showIcon(IconNames.Heart)
+        if (wizual) {basic.showIcon(IconNames.Heart)}
     }
 }
 function doFLeft (ile: number) {
@@ -224,23 +221,73 @@ function doUp () {
         doCheckSkarb()
     }
 }
+
+function doWszystkieOpcje () {
+    for (let x1 = 0; x1 <= 4; x1++) {
+        for (let x2 = 0; x2 <= 4; x2++) {
+            for (let y1 = 0; y1 <= 4; y1++) {
+                for (let y2 = 0; y2 <= 4; y2++) {
+                    if (x1 == x2 && y1 == y2) {
+                    	
+                    } else {
+                        doStart(x1, y1, x2, y2,rozmiarBaku)
+                        du_przemek()
+                        if (Efekt == 1) {
+                            porazka += 1
+                        } else if (Efekt == 2) {
+                            sukces += 1
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+function doLosujRobotiRozbitek () {
+    let x1 = randint(0, 4)
+    let x2 = randint(0, 4)
+    let y1 = randint(0, 4)
+    let y2 = randint(0, 4)
+    while (x1 == x2 && y1 == y2) {
+        if (x1 == x2) {
+            x1 = randint(0, 4)
+        } else if (y1 == y2) {
+            y1 = randint(0, 4)
+        }
+    }
+    doStart(x1, y1, x2, y2,rozmiarBaku)
+    doAdam()
+    if (Efekt == 1) {
+        porazka += 1
+    } else if (Efekt == 2) {
+        sukces += 1
+    }
+}
+
+let wizual = false
 let sukces = 0
 let porazka = 0
 let kierunek = 0
 let oldrx = 0
 let oldry = 0
+let sy = 0
+let sx = 0
 let score = 0
 let Efekt = 0
 let skarb: game.LedSprite = null
 let robot: game.LedSprite = null
 let ry = 0
 let rx = 0
-let sy = 0
-let sx = 0
 let paliwo = 0
 let pausa = 0
-pausa = 10
-paliwo = 20
+if (wizual){
+    pausa = 100
+}
+
+let rozmiarBaku = 20
+
+paliwo = rozmiarBaku
 rx = 0
 ry = 0
 let slad = 100
@@ -248,26 +295,21 @@ robot = game.createSprite(rx, ry)
 robot.set(LedSpriteProperty.Blink, 0)
 skarb = game.createSprite(randint(1, 4), randint(1, 4))
 skarb.set(LedSpriteProperty.Blink, 400)
-doStart(1, 1,20)
+doStart(1, 1,1,1, 20)
+
 basic.forever(function () {
-    for (let index112 = 0; index112 <= 4; index112++) {
-        for (let index1122 = 0; index1122 <= 4; index1122++) {
-            if (index112 == 0 && index1122 == 0) {
-            	
-            } else {
-                doStart(index1122, index112,20)
-                doMichal()
-                if (Efekt == 1) {
-                    porazka += 1
-                } else if (Efekt == 2) {
-                    sukces += 1
-                }
-            }
-        }
+
+    //tutaj wstawiasz wywolanie funkcji sprawdzajacej efektywnosc algorytmu
+    for (let index = 0; index < 1000; index++) {
+        doLosujRobotiRozbitek()
     }
+    robot.delete()
+    skarb.delete()
     basic.clearScreen()
-    basic.showString("P:")
-    basic.showNumber(porazka)
-    basic.showString("S:")
-    basic.showNumber(sukces)
+    while (true) {
+        basic.showString("P:")
+        basic.showNumber(porazka)
+        basic.showString("S:")
+        basic.showNumber(sukces)
+    }
 })
