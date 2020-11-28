@@ -27,6 +27,42 @@ function doFUp (ile: number) {
         doUp()
     }
 }
+// Jak działa funkcja radar:
+// "sx=rx"	"sy>ry"	5
+// "sx=rx"	"sy<ry"	1
+// "sy=ry"	"sx<rx"	7
+// "sy=ry"	"sx>ry"	3
+// "sy<ry"	"sx>rx"	2
+// "sy>ry"	"sx>rx"	4
+// "sy>ry"	"sx<rx"	6
+// "sy<ry"	"sx<rx"	8
+function doRadarX (sx: number, sy: number, rx: number, ry: number) {
+    if (sx==rx && sy>ry) {
+        return 5
+    }
+    if (sx==rx && sy<ry) {
+        return 1
+    }
+    if (sy==ry && sx<rx) {
+        return 7
+    }
+    if (sy==ry && sx>rx) {
+        return 3
+    }
+    if (sy<ry && sx>rx) {
+        return 2
+    }
+    if (sy>ry && sx>rx) {
+        return 4
+    }
+    if (sy>ry && sx<rx) {
+        return 6
+    }
+    if (sy<ry && sx<rx) {
+        return 8
+    }
+return 0
+}
 function doMaks () {
     for (let index = 0; index < 100; index++) {
         for (let index = 0; index < 2; index++) {
@@ -154,6 +190,24 @@ function doLeft () {
         doCheckSkarb()
     }
 }
+function doMichal () {
+    for (let index = 0; index < 100; index++) {
+        doFRight(2)
+        doFDown(2)
+        doFLeft(2)
+        doFUp(2)
+        doFLeft(2)
+        doFDown(2)
+        doFUp(2)
+        doFRight(2)
+        doFLeft(2)
+        doFUp(2)
+        doFDown(2)
+        doFLeft(2)
+        doFDown(2)
+        doFLeft(2)
+    }
+}
 function doUp () {
     if (Efekt == 0) {
         oldry = ry
@@ -190,13 +244,13 @@ skarb = game.createSprite(randint(1, 4), randint(1, 4))
 skarb.set(LedSpriteProperty.Blink, 400)
 doStart(1, 1)
 basic.forever(function () {
-    for (let index11 = 0; index11 <= 4; index11++) {
-        for (let index112 = 0; index112 <= 4; index112++) {
-            if (index11 == 0 && index112 == 0) {
+    for (let index112 = 0; index112 <= 4; index112++) {
+        for (let index1122 = 0; index1122 <= 4; index1122++) {
+            if (index112 == 0 && index1122 == 0) {
             	
             } else {
-                doStart(index112, index11)
-                du_przemek()
+                doStart(index1122, index112)
+                doMichal()
                 if (Efekt == 1) {
                     porazka += 1
                 } else if (Efekt == 2) {
