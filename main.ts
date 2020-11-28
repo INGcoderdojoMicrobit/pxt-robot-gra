@@ -1,17 +1,21 @@
-function doStart (x: number, y: number) {
+function doStart (x: number, y: number, ilePaliwo: number) {
     // 0-Puste
     // 1-Brakło paliwa
     // 2-Wygrałeś
     Efekt = 0
-    paliwo = 20
+    paliwo = ilePaliwo
     score = 0
-    rx = 0
-    ry = 0
+    rx = x
+    ry = y
+    sx = 0
+    sy = 0
     robot.set(LedSpriteProperty.X, rx)
     robot.set(LedSpriteProperty.Y, ry)
-    skarb.set(LedSpriteProperty.X, x)
-    skarb.set(LedSpriteProperty.Y, y)
+    skarb.set(LedSpriteProperty.X, sx)
+    skarb.set(LedSpriteProperty.Y, sy)
 }
+
+
 function doFDown (ile: number) {
     for (let index = 0; index < ile; index++) {
         doDown()
@@ -231,6 +235,8 @@ let skarb: game.LedSprite = null
 let robot: game.LedSprite = null
 let ry = 0
 let rx = 0
+let sy = 0
+let sx = 0
 let paliwo = 0
 let pausa = 0
 pausa = 10
@@ -242,14 +248,14 @@ robot = game.createSprite(rx, ry)
 robot.set(LedSpriteProperty.Blink, 0)
 skarb = game.createSprite(randint(1, 4), randint(1, 4))
 skarb.set(LedSpriteProperty.Blink, 400)
-doStart(1, 1)
+doStart(1, 1,20)
 basic.forever(function () {
     for (let index112 = 0; index112 <= 4; index112++) {
         for (let index1122 = 0; index1122 <= 4; index1122++) {
             if (index112 == 0 && index1122 == 0) {
             	
             } else {
-                doStart(index1122, index112)
+                doStart(index1122, index112,20)
                 doMichal()
                 if (Efekt == 1) {
                     porazka += 1
