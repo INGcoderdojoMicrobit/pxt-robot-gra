@@ -166,6 +166,8 @@ function doUp () {
         doCheckSkarb()
     }
 }
+let sukces = 0
+let porazka = 0
 let kierunek = 0
 let oldrx = 0
 let oldry = 0
@@ -177,9 +179,7 @@ let ry = 0
 let rx = 0
 let paliwo = 0
 let pausa = 0
-let porazka = 0
-let sukces = 0
-pausa = 100
+pausa = 10
 paliwo = 20
 rx = 0
 ry = 0
@@ -190,12 +190,12 @@ skarb = game.createSprite(randint(1, 4), randint(1, 4))
 skarb.set(LedSpriteProperty.Blink, 400)
 doStart(1, 1)
 basic.forever(function () {
-    for (let index = 0; index <= 4; index++) {
-        for (let index11 = 0; index11 <= 4; index11++) {
-            if (index == 0 && index11 == 0) {
+    for (let index11 = 0; index11 <= 4; index11++) {
+        for (let index112 = 0; index112 <= 4; index112++) {
+            if (index11 == 0 && index112 == 0) {
             	
             } else {
-                doStart(index11, index)
+                doStart(index112, index11)
                 du_przemek()
                 if (Efekt == 1) {
                     porazka += 1
@@ -205,6 +205,7 @@ basic.forever(function () {
             }
         }
     }
+    basic.clearScreen()
     basic.showString("P:")
     basic.showNumber(porazka)
     basic.showString("S:")
