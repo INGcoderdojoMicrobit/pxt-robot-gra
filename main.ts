@@ -85,25 +85,31 @@ function doRadarX (sx: number, sy: number, rx: number, ry: number) {
     return 0
 }
 function doMaks () {
-    for (let index = 0; index < 100; index++) {
-        for (let index = 0; index < 2; index++) {
-            doFDown(1)
-            doFRight(1)
-            doFUp(1)
-            doFRight(1)
-        }
-        doFDown(4)
-        for (let index = 0; index < 2; index++) {
-            doFLeft(1)
-            doFUp(1)
-            doFLeft(1)
-            doFDown(1)
-            doFLeft(1)
-            doFUp(1)
-            doFLeft(1)
+    let wynik=doRadar()
+    if(wynik==1){
+        doFUp(5)
+    } else {
+        for (let index = 0; index < 100; index++) {
+            for (let index = 0; index < 2; index++) {
+                doFDown(1)
+                doFRight(1)
+                doFUp(1)
+                doFRight(1)
+            }
+            doFDown(4)
+            for (let index = 0; index < 2; index++) {
+                doFLeft(1)
+                doFUp(1)
+                doFLeft(1)
+                doFDown(1)
+                doFLeft(1)
+                doFUp(1)
+                doFLeft(1)
+            }
         }
     }
 }
+    
 function doRight () {
     if (Efekt == 0) {
         oldry = ry
@@ -286,7 +292,7 @@ let rx = 0
 let paliwo = 0
 let rozmiarBaku = 0
 let pausa = 0
-let wizual = 0
+let wizual = false
 let sx = 0
 let sy = 0
 if (wizual) {
@@ -304,9 +310,10 @@ skarb.set(LedSpriteProperty.Blink, 400)
 doStart(1, 1, 1, 1, 20)
 basic.forever(function () {
     // tutaj wstawiasz wywolanie funkcji sprawdzajacej efektywnosc algorytmu
-    for (let index = 0; index < 1000; index++) {
-        doLosujRobotiRozbitek()
-    }
+//   for (let index = 0; index < 1000; index++) {
+  //      doLosujRobotiRozbitek()
+    //}
+    doWszystkieOpcje()
     robot.delete()
     skarb.delete()
     basic.clearScreen()
