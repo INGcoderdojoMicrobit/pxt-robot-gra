@@ -290,10 +290,10 @@ function doPrzemek () {
     doDown()
 }
 
-//Adam - total randomized, calkiem losowo
+//Adam - total randomized, calkiem losowo + Radar
 function doAdam () {
     for (let index = 0; index < 100; index++) {
-        kierunek = randint(1, 8)
+        kierunek = randint(1, 15)
         if (kierunek == 1) {
             doDown()
         } else if (kierunek == 2) {
@@ -310,6 +310,28 @@ function doAdam () {
             doFUp(randint(1, 3))
         } else if (kierunek == 8) {
             doFDown(randint(1, 3))
+        } else if (kierunek >= 9) {
+            kierunek=doRadar()
+            if (kierunek == 1) doFUp(4)
+            if (kierunek==3) doFRight(4)
+            if (kierunek==5) doFDown(4)
+            if (kierunek==7) doFLeft(4)
+            if (kierunek==2) {
+                doUp() 
+                doRight()
+            }
+            if (kierunek==4) {
+                doDown() 
+                doRight()
+            }
+            if (kierunek==6) {
+                doDown() 
+                doLeft()
+            }
+            if (kierunek==8) {
+                doUp() 
+                doLeft()
+            }
         }
     }
 }
