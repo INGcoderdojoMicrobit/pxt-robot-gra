@@ -383,6 +383,8 @@ crashedastronaut.set(LedSpriteProperty.Blink, 400)
 doStart(1, 1, 1, 1, 20)
 
 basic.forever(function () {
+
+    
     // tutaj wstawiasz wywolanie funkcji sprawdzajacej efektywnosc algorytmu
     for (let index = 0; index < 1000; index++) {
         doLosujRobotiRozbitek()
@@ -397,7 +399,6 @@ basic.forever(function () {
         basic.showNumber(porazka)
         basic.showString("S:") //sukces/success
         basic.showNumber(sukces)
-        basic.showString("%:") //sukces/success
-        basic.showNumber(Math.floor(sukces/10))
+        basic.showString("E:"+Math.floor(sukces/10).toString()+"%") //efekt/effect
     }
 })
