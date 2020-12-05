@@ -1,6 +1,8 @@
 // Funkcja ustawia na odpowiednim miejscu robota i rozbitego astronautę oraz ile maksymalnie paliwa posiada robot
 // Function sets x,y coordinates of robot and crashed astronaut as well as max fuel available for robot
 function doStart (robotx: number, roboty: number, crashx: number, crashy: number, fuelmax: number) {
+    listX = []
+    listY = []
     // 0-Puste/robot run
     // 1-Brakło paliwa / empty fuel
     // 2-Wygrałeś / Winner
@@ -203,6 +205,20 @@ function doCheckSkarb () {
             basic.showIcon(IconNames.Heart)
         }
     }
+    if (doSprawdz(robot.get(LedSpriteProperty.X), robot.get(LedSpriteProperty.Y)) == 0) {
+        listX.push(robot.get(LedSpriteProperty.X))
+        listY.push(robot.get(LedSpriteProperty.Y))
+    }
+}
+function doSprawdz (X: number, Y: number) {
+    if (listX.length > 0) {
+        for (let index = 0; index <= listX.length; index++) {
+            if (listX[index] == X && listY[index] == Y) {
+                return 1
+            }
+        }
+    }
+    return 0
 }
 // Robot goes left for "ile" steps
 function doFLeft (ile: number) {
@@ -234,7 +250,16 @@ function doAdam () {
     for (let index = 0; index < 100; index++) {
         kierunek = randint(1, 15)
         if (kierunek == 1) {
-            doDown()
+            nX = robot.get(LedSpriteProperty.X)
+            nY = robot.get(LedSpriteProperty.Y) + 1
+            if (nY > 4) {
+                nY = 0
+            }
+            if (doSprawdz(nX, nY) == 0) {
+                doDown()
+            } else {
+                kierunek = randint(2, 15)
+            }
         } else if (kierunek == 2) {
             doRight()
         } else if (kierunek == 3) {
@@ -302,13 +327,16 @@ function doLosujRobotiRozbitek () {
     doStart(x12, y12, x22, y22, rozmiarBaku)
     // tutaj wstawiamy naszą funkcję sterującą robotem
     // place here robot steering function
-    doMichalina()
+    doAdam()
     if (efekt == 1) {
         // jesli braklo paliwa / emptu fuel
         porazka += 1
     } else if (efekt == 2) {
         // uratowany! / astronaut found!
         sukces += 1
+    } else {
+        // jesli braklo paliwa / emptu fuel
+        porazka += 1
     }
 }
 // Rafal - losowo ale pojedynczo
@@ -372,21 +400,23 @@ function doUp () {
     }
 }
 /**
- * wizual=0 do wielokrotnych symulacji, wizual=1 porusza wolniej robotem i prezentuje wyniki
- */
-/**
- * szybkie poruszanie robotem / very fast calculation
- */
-/**
  * robot - uzywamy sprite
  */
 /**
  * astrunauta/astronaut - uzywamy sprite
  */
+/**
+ * wizual=0 do wielokrotnych symulacji, wizual=1 porusza wolniej robotem i prezentuje wyniki
+ */
+/**
+ * szybkie poruszanie robotem / very fast calculation
+ */
 let y22 = 0
 let y12 = 0
 let x22 = 0
 let x12 = 0
+let nY = 0
+let nX = 0
 let kierunek = 0
 let oldrx = 0
 let oldry = 0
@@ -401,9 +431,13 @@ let paliwo = 0
 let pausa = 0
 let wizual = 0
 let rozmiarBaku = 0
-let sukces = 0
-let sx = 0
+let listY: number[] = []
+let listX: number[] = []
 let sy = 0
+let sx = 0
+let sukces = 0
+listX = []
+listY = []
 // tutaj ustaw pojemność baku robota / here put fuel max volume
 rozmiarBaku = 20
 wizual = 0
