@@ -161,8 +161,18 @@ function doRight () {
 // Michalina - line & down, linijka i w dol
 function doMichalina () {
     for (let index = 0; index < 100; index++) {
-        doFRight(4)
-        doFDown(1)
+        kierunek = doRadar()
+        
+        if(kierunek==3){
+            doFRight(4)}
+            else if(kierunek==7){
+                doFLeft(4)
+            }
+        if(kierunek==1 || kierunek==2 || kierunek==8){
+        doFUp(1)}
+        
+        else if(kierunek==4 || kierunek==5 || kierunek==6){
+            doFDown(1)}
     }
 }
 // Funkcja sprawdza czy robot znalazł rozbitego astronautę, zużywa paliwo robota na wykonanie kroku, prezentuje wynik
@@ -292,7 +302,7 @@ function doLosujRobotiRozbitek () {
     doStart(x12, y12, x22, y22, rozmiarBaku)
     // tutaj wstawiamy naszą funkcję sterującą robotem
     // place here robot steering function
-    doAdam()
+    doMichalina()
     if (efekt == 1) {
         // jesli braklo paliwa / emptu fuel
         porazka += 1
@@ -396,7 +406,7 @@ let sx = 0
 let sy = 0
 // tutaj ustaw pojemność baku robota / here put fuel max volume
 rozmiarBaku = 20
-wizual = 1
+wizual = 0
 if (wizual) {
     // jesli flaga ustawiona na "true/1" to pokazuj wolniej / if flag set to "true/1" show robot moves
     pausa = 200
