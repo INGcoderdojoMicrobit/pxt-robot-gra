@@ -391,9 +391,9 @@ let paliwo = 0
 let pausa = 0
 let wizual = 0
 let rozmiarBaku = 0
-let sy = 0
-let sx = 0
 let sukces = 0
+let sx = 0
+let sy = 0
 // tutaj ustaw pojemność baku robota / here put fuel max volume
 rozmiarBaku = 20
 wizual = 1
