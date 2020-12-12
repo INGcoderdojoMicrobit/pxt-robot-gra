@@ -24,15 +24,64 @@ function doFDown (ile: number) {
 }
 // Przemek - snail, slimak
 function doPrzemek () {
-    doFDown(4)
-    doFRight(4)
-    doFUp(4)
-    doFLeft(3)
-    doFDown(3)
-    doFRight(2)
-    doFUp(2)
-    doLeft()
-    doDown()
+    kierunek = doRadar()
+    // slimak idzie w prawo i w górę
+    if (kierunek == 1) {
+        // slimak idzie w gore i prawo
+        doFUp(4)
+        doFRight(4)
+        doFDown(4)
+        doFLeft(3)
+        doFUp(3)
+        doFRight(2)
+        doFDown(2)
+        doLeft()
+        doUp()
+    } else if (kierunek == 2) {
+        // slimak idzie w prawo i w gore
+        doFRight(4)
+        doFUp(4)
+        doFLeft(4)
+    	doFDown(3)
+        doFRight(3)
+        doFUp(2)
+        doFLeft(2)
+        doDown()
+        doRight()
+    } else if (kierunek == 3 || kierunek == 4) {
+        // slimak idzie w dol i w prawo
+        doFDown(4)
+        doFRight(4)
+        doFUp(4)
+        doFLeft(3)
+        doFDown(3)
+        doFRight(2)
+        doFUp(2)
+        doLeft()
+        doDown()
+    } else if (kierunek == 5 || kierunek == 6) {
+        // slimak idzie w dol i w lewo
+        doFDown(4)
+        doFLeft(4)
+        doFUp(4)
+        doFRight(3)
+        doFDown(3)
+        doFLeft(2)
+        doFUp(2)
+        doRight()
+        doDown()
+    } else if (kierunek == 7 || kierunek == 8) {
+        // slimak idzie w gore i w lewo
+        doFUp(4)
+        doFLeft(4)
+        doFDown(4)
+        doFRight(3)
+        doFUp(3)
+        doFLeft(2)
+        doFDown(2)
+        doRight()
+        doUp()
+    }
 }
 // Robot goes right for "ile" steps
 function doFRight (ile: number) {
@@ -129,22 +178,27 @@ function doRadarX (sx: number, sy: number, rx: number, ry: number) {
 // Maks
 function doMaks () {
     for (let index = 0; index < 100; index++) {
-        for (let index = 0; index < 2; index++) {
-            doFDown(1)
-            doFRight(1)
-            doFUp(1)
-            doFRight(1)
+        kierunek = doRadar()
+        if (kierunek == 2 || kierunek ==3 || kierunek == 4) {
+            for (let index = 0; index < 2; index++) {
+                doFDown(1)
+                doFRight(1)
+                doFUp(1)
+                doFRight(1)
+            }
+        }
+        else {
+            for (let index = 0; index < 2; index++) {
+                doFLeft(1)
+                doFUp(1)
+                doFLeft(1)
+                doFDown(1)
+                doFLeft(1)
+                doFUp(1)
+                doFLeft(1)
+            }
         }
         doFDown(4)
-        for (let index = 0; index < 2; index++) {
-            doFLeft(1)
-            doFUp(1)
-            doFLeft(1)
-            doFDown(1)
-            doFLeft(1)
-            doFUp(1)
-            doFLeft(1)
-        }
     }
 }
 // Robot goes 1 step right, checks if astronaut found
@@ -164,17 +218,27 @@ function doRight () {
 function doMichalina () {
     for (let index = 0; index < 100; index++) {
         kierunek = doRadar()
-        
-        if(kierunek==3){
-            doFRight(4)}
-            else if(kierunek==7){
-                doFLeft(4)
-            }
-        if(kierunek==1 || kierunek==2 || kierunek==8){
-        doFUp(1)}
-        
-        else if(kierunek==4 || kierunek==5 || kierunek==6){
-            doFDown(1)}
+        if (kierunek == 3) {
+            doFRight(4)
+        } else if (kierunek == 7) {
+            doFLeft(4)
+        } else if (kierunek == 1) {
+            doFUp(4)
+        } else if (kierunek == 5) {
+            doFDown(4)
+        } else if (kierunek == 2) {
+            doUp()
+            doRight()
+        } else if (kierunek == 8) {
+            doUp()
+            doLeft()
+        } else if (kierunek == 4){
+            doDown()
+            doRight()
+        } else if (kierunek == 6){
+            doDown()
+            doLeft()
+        }
     }
 }
 // Funkcja sprawdza czy robot znalazł rozbitego astronautę, zużywa paliwo robota na wykonanie kroku, prezentuje wynik
@@ -212,8 +276,8 @@ function doCheckSkarb () {
 }
 function doSprawdz (X: number, Y: number) {
     if (listX.length > 0) {
-        for (let index = 0; index <= listX.length; index++) {
-            if (listX[index] == X && listY[index] == Y) {
+        for (let index8 = 0; index8 <= listX.length; index8++) {
+            if (listX[index8] == X && listY[index8] == Y) {
                 return 1
             }
         }
@@ -327,7 +391,7 @@ function doLosujRobotiRozbitek () {
     doStart(x12, y12, x22, y22, rozmiarBaku)
     // tutaj wstawiamy naszą funkcję sterującą robotem
     // place here robot steering function
-    doAdam()
+    doMaks()
     if (efekt == 1) {
         // jesli braklo paliwa / emptu fuel
         porazka += 1
@@ -417,10 +481,10 @@ let x22 = 0
 let x12 = 0
 let nY = 0
 let nX = 0
-let kierunek = 0
 let oldrx = 0
 let oldry = 0
 let porazka = 0
+let kierunek = 0
 let score = 0
 let efekt = 0
 let crashedastronaut: game.LedSprite = null
@@ -433,19 +497,18 @@ let wizual = 0
 let rozmiarBaku = 0
 let listY: number[] = []
 let listX: number[] = []
-let sy = 0
-let sx = 0
 let sukces = 0
+let sx = 0
+let sy = 0
 listX = []
 listY = []
 // tutaj ustaw pojemność baku robota / here put fuel max volume
-rozmiarBaku = 20
+rozmiarBaku = 15
 wizual = 0
 if (wizual) {
     // jesli flaga ustawiona na "true/1" to pokazuj wolniej / if flag set to "true/1" show robot moves
     pausa = 200
 }
-rozmiarBaku = 20
 // uzupełnij paliwo / refuel
 paliwo = rozmiarBaku
 rx = 0
