@@ -16,6 +16,32 @@ function doStart (robotx: number, roboty: number, crashx: number, crashy: number
     crashedastronaut.set(LedSpriteProperty.X, crashx)
     crashedastronaut.set(LedSpriteProperty.Y, crashy)
 }
+
+// Wstawka na święta
+function dosilentNight () {
+    basic.showLeds(`
+        . . # . .
+        . # # # .
+        . # # # .
+        # # # # #
+        . . # . .
+        `)
+        basic.pause(1000)
+    music.setTempo(55)
+    for (let index = 0; index < 2; index++) {
+        music.playTone(392, music.beat(BeatFraction.Whole))
+        music.playTone(440, music.beat(BeatFraction.Half))
+        music.playTone(392, music.beat(BeatFraction.Half))
+        music.playTone(330, music.beat(BeatFraction.Whole))
+    }
+    music.playTone(587, music.beat(BeatFraction.Half))
+    music.playTone(587, music.beat(BeatFraction.Half))
+    music.playTone(494, music.beat(BeatFraction.Whole))
+    music.playTone(523, music.beat(BeatFraction.Half))
+    music.playTone(523, music.beat(BeatFraction.Half))
+    music.playTone(392, music.beat(BeatFraction.Half))
+}
+
 // Robot goes down for "ile" steps
 function doFDown (ile: number) {
     for (let index = 0; index < ile; index++) {
@@ -267,6 +293,7 @@ function doCheckSkarb () {
         efekt = 2
         if (wizual) {
             basic.showIcon(IconNames.Heart)
+            if (randint(0, 5) ==0){dosilentNight()}
         }
     }
     if (doSprawdz(robot.get(LedSpriteProperty.X), robot.get(LedSpriteProperty.Y)) == 0) {
@@ -504,7 +531,7 @@ listX = []
 listY = []
 // tutaj ustaw pojemność baku robota / here put fuel max volume
 rozmiarBaku = 15
-wizual = 0
+wizual = 1
 if (wizual) {
     // jesli flaga ustawiona na "true/1" to pokazuj wolniej / if flag set to "true/1" show robot moves
     pausa = 200
