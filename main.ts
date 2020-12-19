@@ -16,32 +16,6 @@ function doStart (robotx: number, roboty: number, crashx: number, crashy: number
     crashedastronaut.set(LedSpriteProperty.X, crashx)
     crashedastronaut.set(LedSpriteProperty.Y, crashy)
 }
-
-// Wstawka na święta
-function dosilentNight () {
-    basic.showLeds(`
-        . . # . .
-        . # # # .
-        . # # # .
-        # # # # #
-        . . # . .
-        `)
-        basic.pause(1000)
-    music.setTempo(55)
-    for (let index = 0; index < 2; index++) {
-        music.playTone(392, music.beat(BeatFraction.Whole))
-        music.playTone(440, music.beat(BeatFraction.Half))
-        music.playTone(392, music.beat(BeatFraction.Half))
-        music.playTone(330, music.beat(BeatFraction.Whole))
-    }
-    music.playTone(587, music.beat(BeatFraction.Half))
-    music.playTone(587, music.beat(BeatFraction.Half))
-    music.playTone(494, music.beat(BeatFraction.Whole))
-    music.playTone(523, music.beat(BeatFraction.Half))
-    music.playTone(523, music.beat(BeatFraction.Half))
-    music.playTone(392, music.beat(BeatFraction.Half))
-}
-
 // Robot goes down for "ile" steps
 function doFDown (ile: number) {
     for (let index = 0; index < ile; index++) {
@@ -68,7 +42,7 @@ function doPrzemek () {
         doFRight(4)
         doFUp(4)
         doFLeft(4)
-    	doFDown(3)
+        doFDown(3)
         doFRight(3)
         doFUp(2)
         doFLeft(2)
@@ -205,15 +179,14 @@ function doRadarX (sx: number, sy: number, rx: number, ry: number) {
 function doMaks () {
     for (let index = 0; index < 100; index++) {
         kierunek = doRadar()
-        if (kierunek == 2 || kierunek ==3 || kierunek == 4) {
+        if (kierunek == 2 || kierunek == 3 || kierunek == 4) {
             for (let index = 0; index < 2; index++) {
                 doFDown(1)
                 doFRight(1)
                 doFUp(1)
                 doFRight(1)
             }
-        }
-        else {
+        } else {
             for (let index = 0; index < 2; index++) {
                 doFLeft(1)
                 doFUp(1)
@@ -234,7 +207,11 @@ function doRight () {
         oldrx = rx
         rx += 1
         if (rx > 4) {
-            rx = 0
+            if (krawedzie == 0) {
+                rx = 0
+            } else {
+                rx = 4
+            }
         }
         robot.set(LedSpriteProperty.X, rx)
         doCheckSkarb()
@@ -258,14 +235,38 @@ function doMichalina () {
         } else if (kierunek == 8) {
             doUp()
             doLeft()
-        } else if (kierunek == 4){
+        } else if (kierunek == 4) {
             doDown()
             doRight()
-        } else if (kierunek == 6){
+        } else if (kierunek == 6) {
             doDown()
             doLeft()
         }
     }
+}
+// Wstawka na święta
+function dosilentNight () {
+    basic.showLeds(`
+        . . # . .
+        . # # # .
+        . # # # .
+        # # # # #
+        . . # . .
+        `)
+    basic.pause(1000)
+    music.setTempo(55)
+    for (let index = 0; index < 2; index++) {
+        music.playTone(392, music.beat(BeatFraction.Whole))
+        music.playTone(440, music.beat(BeatFraction.Half))
+        music.playTone(392, music.beat(BeatFraction.Half))
+        music.playTone(330, music.beat(BeatFraction.Whole))
+    }
+    music.playTone(587, music.beat(BeatFraction.Half))
+    music.playTone(587, music.beat(BeatFraction.Half))
+    music.playTone(494, music.beat(BeatFraction.Whole))
+    music.playTone(523, music.beat(BeatFraction.Half))
+    music.playTone(523, music.beat(BeatFraction.Half))
+    music.playTone(392, music.beat(BeatFraction.Half))
 }
 // Funkcja sprawdza czy robot znalazł rozbitego astronautę, zużywa paliwo robota na wykonanie kroku, prezentuje wynik
 // jeśli znalazł astronautę - serduszko, jeśli brakło paliwa - czaszkę (w zależności od parametru wizual = true)
@@ -293,7 +294,9 @@ function doCheckSkarb () {
         efekt = 2
         if (wizual) {
             basic.showIcon(IconNames.Heart)
-            if (randint(0, 5) ==0){dosilentNight()}
+            if (randint(0, 5) == 0) {
+                dosilentNight()
+            }
         }
     }
     if (doSprawdz(robot.get(LedSpriteProperty.X), robot.get(LedSpriteProperty.Y)) == 0) {
@@ -303,8 +306,8 @@ function doCheckSkarb () {
 }
 function doSprawdz (X: number, Y: number) {
     if (listX.length > 0) {
-        for (let index8 = 0; index8 <= listX.length; index8++) {
-            if (listX[index8] == X && listY[index8] == Y) {
+        for (let index82 = 0; index82 <= listX.length; index82++) {
+            if (listX[index82] == X && listY[index82] == Y) {
                 return 1
             }
         }
@@ -330,7 +333,11 @@ function doDown () {
         oldrx = rx
         ry += 1
         if (ry > 4) {
-            ry = 0
+            if (krawedzie == 0) {
+                ry = 0
+            } else {
+                ry = 4
+            }
         }
         robot.set(LedSpriteProperty.Y, ry)
         doCheckSkarb()
@@ -452,7 +459,11 @@ function doLeft () {
         oldrx = rx
         rx += -1
         if (rx < 0) {
-            rx = 4
+            if (krawedzie == 0) {
+                rx = 4
+            } else {
+                rx = 0
+            }
         }
         robot.set(LedSpriteProperty.X, rx)
         doCheckSkarb()
@@ -484,23 +495,27 @@ function doUp () {
         oldrx = rx
         ry += -1
         if (ry < 0) {
-            ry = 4
+            if (krawedzie == 0) {
+                ry = 4
+            } else {
+                ry = 0
+            }
         }
         robot.set(LedSpriteProperty.Y, ry)
         doCheckSkarb()
     }
 }
 /**
- * robot - uzywamy sprite
- */
-/**
- * astrunauta/astronaut - uzywamy sprite
+ * szybkie poruszanie robotem / very fast calculation
  */
 /**
  * wizual=0 do wielokrotnych symulacji, wizual=1 porusza wolniej robotem i prezentuje wyniki
  */
 /**
- * szybkie poruszanie robotem / very fast calculation
+ * astrunauta/astronaut - uzywamy sprite
+ */
+/**
+ * robot - uzywamy sprite
  */
 let y22 = 0
 let y12 = 0
@@ -515,6 +530,7 @@ let kierunek = 0
 let score = 0
 let efekt = 0
 let crashedastronaut: game.LedSprite = null
+let krawedzie = 0
 let robot: game.LedSprite = null
 let ry = 0
 let rx = 0
@@ -524,9 +540,9 @@ let wizual = 0
 let rozmiarBaku = 0
 let listY: number[] = []
 let listX: number[] = []
-let sukces = 0
-let sx = 0
 let sy = 0
+let sx = 0
+let sukces = 0
 listX = []
 listY = []
 // tutaj ustaw pojemność baku robota / here put fuel max volume
@@ -541,6 +557,7 @@ paliwo = rozmiarBaku
 rx = 0
 ry = 0
 robot = game.createSprite(rx, ry)
+krawedzie = 0
 // robot nie miga / does not blink
 robot.set(LedSpriteProperty.Blink, 0)
 crashedastronaut = game.createSprite(randint(1, 4), randint(1, 4))
